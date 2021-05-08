@@ -1,0 +1,15 @@
+SpeechRecognition
+flask
+flask-cors
+ibm_watson
+
+
+
+
+
+
+
+
+
+
+
