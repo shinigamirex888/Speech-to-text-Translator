@@ -14,8 +14,14 @@
 		h1,h2,h3,h4,h5,h6{font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;}
 		.title{color:#273582;}
 		#fetch{cursor:pointer;}
+		#fetch1{cursor:pointer;}
+		#fetch2{cursor:pointer;}
 		#stopfetch{cursor:pointer;}
+		#stopfetch1{cursor:pointer;}
+		#stopfetch2{cursor:pointer;}
 		#fetch:hover,#fetch:active,#fetch:focus,#stopfetch:hover,#stopfetch:active,#stopfetch:focus{background-color:#ff7f00;border-color:#ff7f00;}
+		#fetch1:hover,#fetch:active,#fetch:focus,#stopfetch:hover,#stopfetch:active,#stopfetch:focus{background-color:#ff7f00;border-color:#ff7f00;}
+		#fetch2:hover,#fetch:active,#fetch:focus,#stopfetch:hover,#stopfetch:active,#stopfetch:focus{background-color:#ff7f00;border-color:#ff7f00;}
 		footer.footer{padding-top:1rem;padding-bottom:1rem;background-color: #e3e8ed!important;}
 		footer a{color:#000;font-weight:600;text-decoration:none;}
 		footer li a:hover{color:orange;}
@@ -210,8 +216,8 @@
 							<input type="file" id="data" class="form-control" accept=".wav">
 						</div>
 						<div class=""><button class="form-control btn btn-outline-primary btn-lg " id="fetch">Change To Hindi (हिंदी)</button></div>
-						<div class=""><button class="form-control btn btn-outline-primary btn-lg mt-2" id="fetch">Change To German (Deutsche)</button></div>
-						<div class=""><button class="form-control btn btn-outline-primary btn-lg mt-2" id="fetch">Change To Chinese (中国人)</button></div>
+						<div class=""><button class="form-control btn btn-outline-primary btn-lg mt-2" id="fetch1">Change To German (Deutsche)</button></div>
+						<div class=""><button class="form-control btn btn-outline-primary btn-lg mt-2" id="fetch2">Change To Chinese (中国人)</button></div>
 					</form>
 				</div>
 				<div class="res-container  col-md-6 col-xs-12 mt-5">
@@ -290,6 +296,104 @@
 				}
 			});
 		});
+
+		$(document).ready(function(){
+			$('#loading').hide();
+			var voicedata;
+			$("#data").change(function(e){ });
+			$("#fetch1").click(function(e){
+				e.preventDefault();
+				if (voicedata == "") {
+					alert("No files selected.");
+				}
+				else{
+					let promise = new Promise(function(resolve, reject){
+						var reader = new FileReader();
+						reader.onload = function(){
+						  var arrayBuffer = reader.result;
+						  var base64str = btoa(arrayBuffer);
+						  voicedata  = 'data:audio/wav;base64,' + base64str;
+						  resolve(voicedata.replace('data:audio/wav;base64,', ''));
+						};
+						reader.readAsBinaryString($('#data').get(0).files[0]);
+					});
+
+					promise.then(result =>{
+						$('#loading').show();
+						console.log(JSON.stringify({sound:result}));
+						$.ajax({
+							url : " ../predict1",   //change url
+							type: "post",
+							mode: 'no-cors',
+							crossdomain: true,
+							withCredentials: false,
+							credentials: 'same-origin',
+							headers: {
+								'Content-Type': 'application/json;charset=UTF-8',
+								"Access-Control-Allow-Origin": "*"
+							},
+							data: JSON.stringify({sound:result}),
+							success: function(response){
+								$(".json-result").html("");
+								$(".json-result").html("<p>" + JSON.stringify(response.Result,true,2) + "</p>");
+								$('#loading').hide();
+							}
+						});
+					});
+				}
+			});
+		});
+
+
+		$(document).ready(function(){
+			$('#loading').hide();
+			var voicedata;
+			$("#data").change(function(e){ });
+			$("#fetch2").click(function(e){
+				e.preventDefault();
+				if (voicedata == "") {
+					alert("No files selected.");
+				}
+				else{
+					let promise = new Promise(function(resolve, reject){
+						var reader = new FileReader();
+						reader.onload = function(){
+						  var arrayBuffer = reader.result;
+						  var base64str = btoa(arrayBuffer);
+						  voicedata  = 'data:audio/wav;base64,' + base64str;
+						  resolve(voicedata.replace('data:audio/wav;base64,', ''));
+						};
+						reader.readAsBinaryString($('#data').get(0).files[0]);
+					});
+
+					promise.then(result =>{
+						$('#loading').show();
+						console.log(JSON.stringify({sound:result}));
+						$.ajax({
+							url : " ../predict2",   //change url
+							type: "post",
+							mode: 'no-cors',
+							crossdomain: true,
+							withCredentials: false,
+							credentials: 'same-origin',
+							headers: {
+								'Content-Type': 'application/json;charset=UTF-8',
+								"Access-Control-Allow-Origin": "*"
+							},
+							data: JSON.stringify({sound:result}),
+							success: function(response){
+								$(".json-result").html("");
+								$(".json-result").html("<p>" + JSON.stringify(response.Result,true,2) + "</p>");
+								$('#loading').hide();
+							}
+						});
+					});
+				}
+			});
+		});
+
+
+
 			//typewritter -effect
 			var TxtRotate = function(el, toRotate, period) {
   this.toRotate = toRotate;
