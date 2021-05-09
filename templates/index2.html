@@ -4,7 +4,7 @@
     <title>Speech to Text</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" sizes="16x16" href="https://www.flaticon.com/svg/vstatic/svg/1587/1587565.svg?token=exp=1620474939~hmac=924effea74a7d593e388550b108e538b">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://cdn2.iconfinder.com/data/icons/lineicon-essential/512/Significon-Translation-512.png">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css" integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2" crossorigin="anonymous">
@@ -185,6 +185,13 @@
     right: 40px;
 	height: 200px;
 }
+@media (max-width: 640px)
+{
+    #response
+    {
+        display: none;
+    }
+}
 		
 	
 	</style>
@@ -195,7 +202,7 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-<a class="navbar-brand" href="https://ineuron.ai">Translator</a>
+<a class="navbar-brand" href="https://shinigamirex-stt.herokuapp.com/">SPEECH TO TEXT</a>
 		</div>
 	</nav>
 
@@ -230,7 +237,7 @@
 				</div>
 			</div>						
 		</div>
-		<img class="sound-graph" src="https://cutewallpaper.org/21/music-equalizer-gif/Tag-For-Music-Equalizer-Gif-45x11cm-Music-Rhythm-Led-Car-.gif" />
+		<img class="sound-graph" id="response" src="https://cutewallpaper.org/21/music-equalizer-gif/Tag-For-Music-Equalizer-Gif-45x11cm-Music-Rhythm-Led-Car-.gif" />
 		<img class ="sound-img" src="https://media1.tenor.com/images/97948ca733915eb236871a1b422e3a2b/tenor.gif?itemid=3535566"/>
 		<footer>
 			<Container>
